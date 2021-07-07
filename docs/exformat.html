@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+<style type="text/css">
+    .hd {
+        width: 100%;
+        height: 50px;
+        background-color: #35d09e;
+    }
+    .ht {
+        padding-left: 10%;
+        font-family: "Andale Mono",serif;
+        font-size: 28px;
+        color: aliceblue;
+        font-weight: 900;
+        padding-top: 6px;
+    }
+    .bd {
+        margin: auto;
+        width: 80%;
+    }
+    .bt {
+        font-family: "Andale Mono", serif;
+        font-size: 18px;
+    }
+    .bi {
+        border: 1px solid #bbb9b9;
+        border-radius: 5px;
+        width: 70%;
+        height: 20px;
+        padding: 5px 10px 5px 10px;
+        color: #8b8888;
+    }
+    .eo {
+        color: #40403f;
+        font-family: Ayuthaya serif;
+        font-size: 15px;
+    }
+</style>
+<head>
+    <meta charset="UTF-8">
+    <title>Java Exception Format</title>
+</head>
+<body style="margin: 0; border: 0; padding: 0">
+<div class="hd">
+    <div class="ht">Java Exception Formatter [CopyRight &copy; All Rights Received]</div>
+</div>
+<div class="bd">
+    <div style="margin-top: 20px">
+        <span class="bt">Input Exception String:</span>
+        <input id="exin" class="bi" placeholder="Exception String"/>
+    </div>
+</div>
+<div class="bd bi" style="border: 0; margin-top: 20px; width: 80%">
+    <span id="exout"></span>
+</div>
+</body>
+<script>
+    function suffix(i, ti) {
+        if (i === 0 || /Caused by: .*Exception/.test(ti)) {
+            return '';
+        }
+        return '    ';
+    }
+    function doFormat(ex) {
+        let t = ex.split(/\s{2,}/);
+        var res = "";
+        for (var i = 0; i < t.length; i ++) {
+            res = res + suffix(i, t[i]) + t[i] + '\n';
+        }
+        return res;
+    }
+</script>
+<script>
+    $(document).ready(function () {
+        $("#exin").bind("input propertychange", function () {
+            let ex = $("#exin").val();
+            $("#exout").html('<pre class="eo">' + doFormat(ex) + '</pre>');
+        });
+    });
+</script>
+</html>
